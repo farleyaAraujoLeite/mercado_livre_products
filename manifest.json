@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Mercado Livre pesquisa",
+  "version": "1.0",
+  "description": "Busca de produtos no mercado livre.",
+  "permissions": ["activeTab", "downloads"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "80": "icon_mercado_livre.png"
+  }
+}
