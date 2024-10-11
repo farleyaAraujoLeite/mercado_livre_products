@@ -8,7 +8,7 @@ document.getElementById('search-btn').addEventListener('click', function() {
 let products = []; // Variável global para armazenar os produtos
 
 async function searchProduct(search) {
-  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(search)}&sort=sold_quantity&limit=50`;
+  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(search)}&sort=sold_quantity&limit=20`;
 
   try {
     const response = await fetch(url);
@@ -39,7 +39,7 @@ function displayProducts(products) {
   table.innerHTML = `
     <tr>
       <th>ID</th>
-      <th>Titulo</th>
+      <th>Título</th>
       <th>Preço</th>
       <th>Quantidade</th>
       <th>Link</th>
@@ -53,7 +53,7 @@ function displayProducts(products) {
       <td>${product.title}</td>
       <td>R$ ${product.price}</td>
       <td>${product.available_quantity} Unid.</td>
-      <td><a href="${product.permalink}" target="_blank">acessar produto</a></td>
+      <td><a href="${product.permalink}" target="_blank">Acessar Produto</a></td>
     `;
     table.appendChild(row);
   });
@@ -61,26 +61,26 @@ function displayProducts(products) {
   resultDiv.appendChild(table);
 }
 
-function downloadExcel(products, search) {
-  const csvContent = `data:text/csv;charset=utf-8,${[
-    ['ID', 'Title', 'Price', 'Quantity', 'Link'],
-    ...products.map(p => [p.id, p.title, p.price, p.available_quantity, p.permalink])
-  ].map(e => e.join(',')).join('\n')}`;
+function downloadCSV(products, search) {
+  const headers = ['ID', 'Title', 'Price', 'Quantity', 'Link'];
+  const rows = products.map(p => [p.id, p.title, p.price, p.available_quantity, p.permalink]);
+
+  const csvContent = `data:text/csv;charset=utf-8,${[headers, ...rows].map(e => e.join(',')).join('\n')}`;
 
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement('a');
   link.setAttribute('href', encodedUri);
-  link.setAttribute('download', `produtos_mais_vendidos_${search}.xlsx`);
+  link.setAttribute('download', `produtos_mais_vendidos_${search}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
 }
 
-// // Adiciona o evento de clique ao botão de download
-// document.getElementById('downloadBtn').addEventListener('click', function() {
-//   if (products.length > 0) {
-//     products.forEach(products => downloadExcel(products))
-//   } else {
-//     alert('Nenhum produto encontrado para download.');
-//   }
-// });
+// Adiciona o evento de clique ao botão de download
+document.getElementById('downloadBtn').addEventListener('click', function() {
+  if (products.length > 0) {
+    downloadCSV(products, document.getElementById('product-search').value);
+  } else {
+    alert('Nenhum produto encontrado para download.');
+  }
+});
