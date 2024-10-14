@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
-  padding: 20px;
-  width: 500px;
+  padding: 10px;
+  width: 600px;
   background-color: #eedf09;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@ h1 {
 input, button {
   margin: 5px 0;
   padding: 10px;
-  width: 100%;
+  width: 70%;
   border-radius: 5px;
 }
 
@@ -38,17 +38,29 @@ th, td {
 }
 
 th {
+  color: #ddd;
+}
+
+th {
   background-color: #0652c4;
 }
 
 img {
-  width: 80px;
-  border-radius: 50%;
-  padding: 10px;
+  border-radius: 5px;
 }
+
+img.zoom {
+  transition: transform 0.2s; 
+}
+
+img.zoom:hover {
+  transform: scale(2.5); 
+}
+
 
 button {
   border-radius: 5px;
   background-color: #0652c4;
   color: #f0f8ff;
+  width: 50%;
 }

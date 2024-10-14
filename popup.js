@@ -43,7 +43,7 @@ function displayProducts(products) {
       <th>Título</th>
       <th>Preço</th>
       <th>Quantidade</th>
-      <th>Imagem</th> <!-- Nova coluna para a imagem -->
+      <th>Imagem</th>
       <th>Link</th>
     </tr>
   `;
@@ -55,7 +55,7 @@ function displayProducts(products) {
       <td>${product.title}</td>
       <td>R$ ${product.price}</td>
       <td>${product.available_quantity} Unid.</td>
-      <td><img src="${product.thumbnail}" alt="${product.title}" width="50"></td> <!-- Adiciona a imagem -->
+      <td><img class="zoom" src="${product.thumbnail}" alt="${product.title}" width="50"></td> <!-- Adiciona a imagem -->
       <td><a href="${product.permalink}" target="_blank">Acessar Produto</a></td>
     `;
     table.appendChild(row);
