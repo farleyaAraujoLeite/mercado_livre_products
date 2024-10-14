@@ -8,7 +8,7 @@ document.getElementById('search-btn').addEventListener('click', function() {
 let products = []; // Variável global para armazenar os produtos
 
 async function searchProduct(search) {
-  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(search)}&sort=sold_quantity&limit=20`;
+  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(search)}&sort=sold_quantity&limit=30`;
 
   try {
     const response = await fetch(url);
@@ -81,8 +81,12 @@ function downloadCSV(products, search) {
 // Adiciona o evento de clique ao botão de download
 document.getElementById('downloadBtn').addEventListener('click', function() {
   if (products.length > 0) {
+    products.forEach(product => {
+      console.log(`Processando produto: ${product.id}`);
+    });
     downloadCSV(products, document.getElementById('product-search').value); // Passando a busca atual
   } else {
     alert('Nenhum produto encontrado para download.');
   }
 });
+
