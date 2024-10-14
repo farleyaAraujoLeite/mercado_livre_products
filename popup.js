@@ -19,7 +19,8 @@ async function searchProduct(search) {
         title: product.title,
         price: product.price,
         available_quantity: product.available_quantity,
-        permalink: product.permalink
+        permalink: product.permalink,
+        thumbnail: product.thumbnail // Adiciona a URL da imagem do produto
       }));
       displayProducts(products);
     } else {
@@ -42,6 +43,7 @@ function displayProducts(products) {
       <th>Título</th>
       <th>Preço</th>
       <th>Quantidade</th>
+      <th>Imagem</th> <!-- Nova coluna para a imagem -->
       <th>Link</th>
     </tr>
   `;
@@ -53,6 +55,7 @@ function displayProducts(products) {
       <td>${product.title}</td>
       <td>R$ ${product.price}</td>
       <td>${product.available_quantity} Unid.</td>
+      <td><img src="${product.thumbnail}" alt="${product.title}" width="50"></td> <!-- Adiciona a imagem -->
       <td><a href="${product.permalink}" target="_blank">Acessar Produto</a></td>
     `;
     table.appendChild(row);
@@ -66,7 +69,6 @@ function downloadCSV(products, search) {
   const rows = products.map(p => [p.id, p.title, p.price, p.available_quantity, p.permalink]);
 
   const csvContent = `data:text/csv;charset=utf-8,${[headers, ...rows].map(e => e.join(',')).join('\n')}`;
-
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement('a');
   link.setAttribute('href', encodedUri);
@@ -79,7 +81,7 @@ function downloadCSV(products, search) {
 // Adiciona o evento de clique ao botão de download
 document.getElementById('downloadBtn').addEventListener('click', function() {
   if (products.length > 0) {
-    downloadCSV(products, document.getElementById('product-search').value);
+    downloadCSV(products, document.getElementById('product-search').value); // Passando a busca atual
   } else {
     alert('Nenhum produto encontrado para download.');
   }
