@@ -8,7 +8,7 @@ document.getElementById('search-btn').addEventListener('click', function() {
 let products = [];
 
 async function searchProduct(search) {
-  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(search)}&sort=sold_quantity&limit=50`;
+  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(search)}&sort=sold_quantity&limit=20`;
 
   try {
     const response = await fetch(url);

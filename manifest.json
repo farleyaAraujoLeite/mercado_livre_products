@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Mercado Livre pesquisa",
+  "name": "ML pesquisa",
   "version": "1.0",
   "description": "Busca de produtos no mercado livre.",
   "permissions": ["activeTab", "downloads"],
