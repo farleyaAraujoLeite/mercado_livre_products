@@ -5,10 +5,10 @@ document.getElementById('search-btn').addEventListener('click', function() {
   }
 });
 
-let products = []; // Variável global para armazenar os produtos
+let products = [];
 
 async function searchProduct(search) {
-  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(search)}&sort=sold_quantity&limit=30`;
+  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(search)}&sort=sold_quantity&limit=50`;
 
   try {
     const response = await fetch(url);
@@ -65,14 +65,14 @@ function displayProducts(products) {
 }
 
 function downloadCSV(products, search) {
-  const headers = ['ID', 'Title', 'Price', 'Quantity', 'Link'];
+  const headers = ['ID', 'Titulo', 'Preço', 'Quantidade', 'Link'];
   const rows = products.map(p => [p.id, p.title, p.price, p.available_quantity, p.permalink]);
 
   const csvContent = `data:text/csv;charset=utf-8,${[headers, ...rows].map(e => e.join(',')).join('\n')}`;
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement('a');
   link.setAttribute('href', encodedUri);
-  link.setAttribute('download', `produtos_mais_vendidos_${search}.csv`);
+  link.setAttribute('download', `produtos_vendidos_mercado_livre${search}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -84,7 +84,7 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
     products.forEach(product => {
       console.log(`Processando produto: ${product.id}`);
     });
-    downloadCSV(products, document.getElementById('product-search').value); // Passando a busca atual
+    downloadCSV(products, document.getElementById('product-search').value);
   } else {
     alert('Nenhum produto encontrado para download.');
   }
