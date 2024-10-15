@@ -66,7 +66,11 @@ function displayProducts(products) {
 
 function downloadCSV(products, search) {
   const headers = ['ID', 'Titulo', 'Preço', 'Quantidade', 'Link'];
-  const rows = products.map(p => [p.id, p.title, p.price, p.available_quantity, p.permalink]);
+  let rows = [];
+
+  products.forEach(p => {
+    rows.push([p.id, p.title, p.price, p.available_quantity, p.permalink]);
+  });
 
   const csvContent = `data:text/csv;charset=utf-8,${[headers, ...rows].map(e => e.join(',')).join('\n')}`;
   const encodedUri = encodeURI(csvContent);
@@ -77,6 +81,7 @@ function downloadCSV(products, search) {
   link.click();
   document.body.removeChild(link);
 }
+
 
 // Adiciona o evento de clique ao botão de download
 document.getElementById('downloadBtn').addEventListener('click', function() {
